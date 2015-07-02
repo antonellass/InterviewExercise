@@ -42,8 +42,8 @@ public enum ItemFactory {
 	 */
 	public ItemI createItem(String itemLine) {
 		logger.debug("Create Item from itemLine: "+ itemLine);
-		String patternQuantity="(\\d+) (.+) at ([\\d\\.,]+)";
-		Pattern pattern = Pattern.compile(patternQuantity);
+		String patternItemLine="(\\d+) (.+) at ([\\d\\.,]+)";
+		Pattern pattern = Pattern.compile(patternItemLine);
 		Matcher matcher = pattern.matcher(itemLine);
 		Integer quantity=null;
 		String name=null;
@@ -75,7 +75,7 @@ public enum ItemFactory {
 
 		}
 		//creazione istanza di Item
-		LogMF.debug(logger," Create Item with name: {0} - quantity: {1} - price: {2}",name,quantity,LocalCurrency.getInstance(price).toString());
+		LogMF.debug(logger,"Item created with name: {0} - quantity: {1} - price: {2}",name,quantity,LocalCurrency.getInstance(price).toString());
 		return new ItemImpl(name, LocalCurrency.getInstance(price), quantity, taxValue);
 	}
 

@@ -4,33 +4,37 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
+import org.apache.log4j.PatternLayout;
 
 import com.interview.taxes.ItemI;
 import com.interview.taxes.SalesCalculator;
 
-public class OutputRenderer {
+public class OutputFilePrinter implements Output {
+
 	/**
 	 * Logger
 	 */
 	public Logger logger= Logger.getLogger(OutputRenderer.class);
 	/**
-	 * OutputRenderer Instance
-	 */
-	private static final OutputRenderer INSTANCE = new OutputRenderer();
-
-	/**
-	 * Static factory method to singleton instance
-	 * 
-	 * @return OutputRenderer Instance
-	 */
-	public static OutputRenderer getInstance() {
-		return INSTANCE;
-	}
-
+//	 * OutputRenderer Instance
+//	 */
+//	private static final OutputRenderer INSTANCE = new OutputRenderer();
+//
+//	/**
+//	 * Static factory method to singleton instance
+//	 * 
+//	 * @return OutputRenderer Instance
+//	 */
+//	public static OutputRenderer getInstance() {
+//		return INSTANCE;
+//	}
+//
 	/**
 	 * SalesCalculator instance
 	 */
@@ -47,6 +51,10 @@ public class OutputRenderer {
 	 * The Builder to produce file
 	 */
 	private StringBuilder outputB;
+	private static final String DIR_OUT ="data/Out";
+
+	private static final String F_OUTPUT="Output";
+
 
 	/**
 	 * Print output
@@ -55,13 +63,17 @@ public class OutputRenderer {
 	 * @param outputFile
 	 * @throws IOException
 	 */
-	public void printOutput(File orderFile, File outputFile) {
+	@Override
+	public String printOutput(File orderFile) {
+		File outputFile = new File(DIR_OUT,orderFile.getName().replaceAll("(?:.+)(\\d+\\.txt)", F_OUTPUT+"$1"));
 		List<ItemI> itemsList = InputReader.getInstance().loadInput(orderFile);
 			render(itemsList, outputFile);
-			LogMF.debug(logger,"Create Output File in:{0} " ,outputFile.getAbsolutePath());
+			LogMF.debug(logger,"Create Output File in:{0} ",outputFile.getAbsolutePath());
+			return outputFile.getPath();
 		
 	}
 
+	
 	/**
 	 * Render the output into a File
 	 * 
@@ -113,4 +125,5 @@ public class OutputRenderer {
 
 		return formattedItem.toString();
 	}
+
 }

@@ -67,7 +67,7 @@ public final class LocalCurrency {
 	 * @return sum of input value
 	 */
 	public LocalCurrency add(BigDecimal valueTosum) {
-		this.value.add(valueTosum);
+		this.value = this.value.add(valueTosum);
 		return this;
 	}
 }

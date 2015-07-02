@@ -21,7 +21,6 @@ public enum SalesCalculator {
 	 * @return
 	 */
 	public BigDecimal calculateTotPrice(ItemI item) {
-		logger.debug("calculateTotPrice");
 		BigDecimal tot = new BigDecimal(BigInteger.ZERO, 2);
 		tot = new BigDecimal(item.getQuantity()).multiply(item.getPrice().getValue());
 		return tot;
@@ -33,7 +32,6 @@ public enum SalesCalculator {
 	 * @return
 	 */
 	public BigDecimal calculateTax(ItemI item) {
-		logger.debug("calculateTax");
 		BigDecimal taxes = new BigDecimal(BigInteger.ZERO, 2);
 		BigDecimal totPrice = calculateTotPrice(item);
 		for (PercentageItemTaxTypeEnum singleTax : item.getApplicableTax()) {
@@ -51,7 +49,6 @@ public enum SalesCalculator {
 	 * @return Singolo importo tassato
 	 */
 	public BigDecimal calculateSingleImport(ItemI item) {
-		logger.debug("calculateSingleImport");
 		return calculateTotPrice(item).add(calculateTax(item));
 	}
 
@@ -61,7 +58,6 @@ public enum SalesCalculator {
 	 * @return importo tassato di tutti gli item
 	 */
 	public BigDecimal calculateTotalImport(List<ItemI> items) {
-		logger.debug("calculateTotalImport");
 		BigDecimal totalImport = new BigDecimal(BigInteger.ZERO, 2);
 		for (ItemI singleItem : items) {
 			totalImport = totalImport.add(calculateSingleImport(singleItem));
@@ -75,7 +71,6 @@ public enum SalesCalculator {
 	 * @return Imposta totale
 	 */
 	public BigDecimal calculateTaxes(List<ItemI> items) {
-		logger.info("calculateTaxes");
 		BigDecimal totTaxes = new BigDecimal(BigInteger.ZERO, 2);
 		for (ItemI singleItem : items) {
 			totTaxes = totTaxes.add(calculateTax(singleItem));

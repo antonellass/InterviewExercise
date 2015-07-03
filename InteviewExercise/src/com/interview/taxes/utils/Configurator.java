@@ -4,6 +4,8 @@ import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -35,7 +37,7 @@ import org.apache.log4j.Logger;
 	        }
 	    }
 		
-		
+
 		public static Configurator getInstance(){
 				return new Configurator();
 		}
@@ -53,6 +55,12 @@ import org.apache.log4j.Logger;
 		 }
 		 public BigDecimal getTaxImported(){
 			 return new BigDecimal(props.getProperty("tax_imported"));
+		 }
+		 public List<String> getExemptItemList(){
+			 
+			 String strList=  props.getProperty("exempt_items");
+			 List<String> myList= Arrays.asList(strList.split(","));
+			 return myList;
 		 }
 
 }

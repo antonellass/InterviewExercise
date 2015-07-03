@@ -3,28 +3,22 @@ package com.interview.taxes.services;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 
 import com.interview.taxes.ItemI;
-import com.interview.taxes.SalesCalculator;
+import com.interview.taxes.calculators.ChainOfResponsabilityCalculator;
 
 public class OutputFilePrinter implements Output {
 
 	/**
 	 * Logger
 	 */
-	public static Logger logger= Logger.getLogger(OutputFilePrinter.class);
-	/**
-	 * SalesCalculator instance
-	 */
-	private SalesCalculator calculator = SalesCalculator.INSTANCE;
+	public Logger logger= Logger.getLogger(OutputFilePrinter.class);
 	/**
 	 * keyword to print
 	 */
@@ -37,8 +31,13 @@ public class OutputFilePrinter implements Output {
 	 * The Builder to produce file
 	 */
 	private StringBuilder outputB;
+	/**
+	 * Directory output
+	 */
 	private static final String DIR_OUT ="data/Out";
-
+	/**
+	 * keyword name file output
+	 */
 	private static final String F_OUTPUT="Output";
 
 
@@ -71,15 +70,23 @@ public class OutputFilePrinter implements Output {
 	public void render(List<ItemI> itemsList, File fOutput) {
 		outputB = new StringBuilder();
 		for (ItemI item : itemsList) {
-			outputB.append(formatItem(item, calculator));
+			ChainOfResponsabilityCalculator cal= new ChainOfResponsabilityCalculator(item);
+			cal.calculateInvoice(item);
+			outputB.append(formatItem(item));
 			outputB.append("\n");
 		}
 		outputB.append(TAXES_TERM);
-		BigDecimal taxes = calculator.calculateTaxes(itemsList);
+		BigDecimal taxes= new BigDecimal(BigInteger.ZERO,2);
+		for (ItemI item : itemsList) {
+		 taxes = taxes.add(item.getTotalTaxes());}
 		outputB.append(taxes);
 		outputB.append("\n");
 		outputB.append(TOTAL_TERM);
-		outputB.append(calculator.calculateTotalImport(itemsList));
+		BigDecimal total= new BigDecimal(BigInteger.ZERO,2);
+		for (ItemI item : itemsList) {
+			total= total.add(item.getSingleImport());
+		}
+		outputB.append(total);
 		try {
 			FileUtils.writeStringToFile(fOutput, outputB.toString());
 		} catch (IOException e) {
@@ -87,6 +94,8 @@ public class OutputFilePrinter implements Output {
 			e.printStackTrace();
 		}
 	}
+	
+	
 
 	/**
 	 * Format a single line
@@ -95,7 +104,7 @@ public class OutputFilePrinter implements Output {
 	 * @param calculator
 	 * @return String of Item
 	 */
-	public String formatItem(ItemI item, SalesCalculator calculator) {
+	public String formatItem(ItemI item) {
 		StringBuilder formattedItem = new StringBuilder();
 
 		// quantity
@@ -107,7 +116,7 @@ public class OutputFilePrinter implements Output {
 
 		// price
 		formattedItem.append(": ");
-		formattedItem.append(calculator.calculateSingleImport(item));
+		formattedItem.append(item.getSingleImport());
 
 		return formattedItem.toString();
 	}

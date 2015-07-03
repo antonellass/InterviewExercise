@@ -17,11 +17,11 @@ public enum PercentageItemTaxTypeEnum {
 	/**
 	 * Books,food and medical item
 	 */
-	EXEMPT(new BigDecimal("0.0")),
+	EXEMPT(Configurator.getInstance().getTaxExempt()),
 	/**
 	 * Imported Item
 	 */
-	IMPORTED(new BigDecimal("0.05"));
+	IMPORTED(Configurator.getInstance().getTaxImported());
 	
 	private BigDecimal tax;
 	

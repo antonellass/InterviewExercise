@@ -1,26 +1,24 @@
 package com.interview.taxes;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Set;
 
-public class ItemImpl implements ItemI{
+public class ItemImpl implements ItemI {
 
-	private  String name;
-	private  LocalCurrency price;
-	private  Integer quantity;
-	private  ItemTypeEnum type;
-	private  Set<PercentageItemTaxTypeEnum> applicableTaxes;
-	
+	private String name;
+	private LocalCurrency price;
+	private Integer quantity;
+	private Set<PercentageItemTaxTypeEnum> applicableTaxes;
+	private BigDecimal singleImport = new BigDecimal(BigInteger.ZERO, 2);
+	private BigDecimal taxImport;
+	private BigDecimal totalTaxes = new BigDecimal(BigInteger.ZERO, 2);
+	private BigDecimal totPrice = new BigDecimal(BigInteger.ZERO, 2);
+
 	public ItemImpl(String name, LocalCurrency singlePrice, Integer quatity, Set<PercentageItemTaxTypeEnum> applicableTaxes) {
 		this.name = name;
 		this.price = singlePrice;
 		this.quantity = quatity;
-		this.applicableTaxes = applicableTaxes;
-	}
-	public ItemImpl(String name, LocalCurrency singlePrice, Integer quatity, ItemTypeEnum type,Set<PercentageItemTaxTypeEnum> applicableTaxes) {
-		this.name = name;
-		this.price = singlePrice;
-		this.quantity = quatity;
-		this.type=type;
 		this.applicableTaxes = applicableTaxes;
 	}
 
@@ -39,14 +37,51 @@ public class ItemImpl implements ItemI{
 		return price;
 	}
 
-	@Override
-	public String getType() {
-		return type.toString();
-	}
-
+	
 	@Override
 	public Set<PercentageItemTaxTypeEnum> getApplicableTax() {
 		return applicableTaxes;
+	}
+
+	@Override
+	public BigDecimal getSingleImport() {
+		return singleImport;
+	}
+
+	@Override
+	public BigDecimal getTaxImport() {
+		return taxImport;
+	}
+
+	@Override
+	public void setSingleImport(BigDecimal singleImport) {
+		this.singleImport = singleImport;
+	}
+
+	@Override
+	public void setTaxImport(BigDecimal taxImport) {
+		this.taxImport = taxImport;
+
+	}
+
+	@Override
+	public void setTotalTaxes(BigDecimal totalTaxes) {
+		this.totalTaxes = totalTaxes;
+	}
+
+	@Override
+	public BigDecimal getTotalTaxes() {
+		return totalTaxes;
+	}
+
+	@Override
+	public BigDecimal getTotPrice() {
+		return totPrice;
+	}
+
+	@Override
+	public void setTotPrice(BigDecimal totPrice) {
+		this.totPrice = totPrice;
 	}
 
 	@Override
@@ -56,7 +91,6 @@ public class ItemImpl implements ItemI{
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
 		return result;
 	}
 
@@ -84,8 +118,6 @@ public class ItemImpl implements ItemI{
 				return false;
 		} else if (!quantity.equals(other.quantity))
 			return false;
-		if (type != other.type)
-			return false;
 		return true;
 	}
 
@@ -94,6 +126,4 @@ public class ItemImpl implements ItemI{
 		return "ItemImpl [name=" + name + ", price=" + price + ", quantity=" + quantity + "]";
 	}
 
-
-	
 }

@@ -20,7 +20,7 @@ public class OutputFilePrinter implements Output {
 	/**
 	 * Logger
 	 */
-	public Logger logger= Logger.getLogger(OutputRenderer.class);
+	public static Logger logger= Logger.getLogger(OutputFilePrinter.class);
 	/**
 	 * SalesCalculator instance
 	 */

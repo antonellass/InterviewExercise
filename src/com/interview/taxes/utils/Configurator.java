@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 	public class Configurator {
 		private static Logger logger = Logger.getLogger(Configurator.class);
 		private static final String PROPERTY_PATH="/settings.properties";
-		private static Configurator configurator=null;
 		private static Properties props = new Properties();
 		
 		private Configurator () {
@@ -37,11 +36,10 @@ import org.apache.log4j.Logger;
 		
 		
 		public static Configurator getInstance(){
-			
-				return configurator=new Configurator();
+				return new Configurator();
 		}
 		
-		 public String getPatternItem(){
+		 public  String getPatternItem(){
 			 return props.getProperty("pattern_Item");
 		 }
 		 

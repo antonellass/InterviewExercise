@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,11 +13,8 @@ import org.apache.log4j.Logger;
 
 import com.interview.taxes.utils.Configurator;
 
-public enum ItemFactory {
-	/**
-	 * Istanza Singleton del Factory
-	 */
-	INSTANCE;
+public class ItemFactory {
+	
 	/**
 	 * Logger
 	 */
@@ -32,12 +28,12 @@ public enum ItemFactory {
 	 */
 	private static List<String> EXEMPT_ITEMS_TOKENS = new ArrayList<String>();
 	
-	private static final String patternItemLine;
+	private static final String patternItemLine=Configurator.getInstance().getPatternItem();
 	
 	private static Pattern pattern ;
 	
 	static{
-		patternItemLine= "(\\d+) (.+) at ([\\d\\.,]+)";
+//		patternItemLine= Configurator.getInstance().getPatternItem();//"(\\d+) (.+) at ([\\d\\.,]+)";
 		pattern= Pattern.compile(patternItemLine);
 	}
 

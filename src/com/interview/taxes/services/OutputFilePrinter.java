@@ -22,20 +22,6 @@ public class OutputFilePrinter implements Output {
 	 */
 	public Logger logger= Logger.getLogger(OutputRenderer.class);
 	/**
-//	 * OutputRenderer Instance
-//	 */
-//	private static final OutputRenderer INSTANCE = new OutputRenderer();
-//
-//	/**
-//	 * Static factory method to singleton instance
-//	 * 
-//	 * @return OutputRenderer Instance
-//	 */
-//	public static OutputRenderer getInstance() {
-//		return INSTANCE;
-//	}
-//
-	/**
 	 * SalesCalculator instance
 	 */
 	private SalesCalculator calculator = SalesCalculator.INSTANCE;

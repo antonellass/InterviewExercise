@@ -13,7 +13,7 @@ public enum SalesCalculator {
 	 */
 	INSTANCE;
 	
-	private Logger logger = Logger.getLogger(SalesCalculator.class);
+	private static Logger logger = Logger.getLogger(SalesCalculator.class);
 
 	/**
 	 * 
@@ -21,8 +21,7 @@ public enum SalesCalculator {
 	 * @return
 	 */
 	public BigDecimal calculateTotPrice(ItemI item) {
-		BigDecimal tot = new BigDecimal(BigInteger.ZERO, 2);
-		tot = new BigDecimal(item.getQuantity()).multiply(item.getPrice().getValue());
+		BigDecimal tot = new BigDecimal(item.getQuantity()).multiply(item.getPrice().getValue());
 		return tot;
 	}
 

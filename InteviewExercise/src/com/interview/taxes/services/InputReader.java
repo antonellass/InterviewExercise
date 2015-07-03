@@ -36,11 +36,11 @@ public class InputReader {
 	 * @param input  File
 	 * @return List of Item
 	 */
-	public List<ItemI> loadInput(File input) {
+	public  List<ItemI> loadInput(File input) {
 		List<ItemI> items = new ArrayList<ItemI>();
 		List<String> lines = reads(input);
 		for (String singleLine : lines) {
-			ItemI item = ItemFactory.INSTANCE.createItem(singleLine);
+			ItemI item = ItemFactory.createItem(singleLine);
 			items.add(item);
 		}
 

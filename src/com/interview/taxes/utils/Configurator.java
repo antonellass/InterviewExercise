@@ -3,6 +3,7 @@ package com.interview.taxes.utils;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -43,15 +44,15 @@ import org.apache.log4j.Logger;
 			 return props.getProperty("pattern_Item");
 		 }
 		 
-		 public String getTaxAll(){
-			 return props.getProperty("tax_all");
+		 public BigDecimal getTaxAll(){
+			 return new BigDecimal(props.getProperty("tax_all"));
 		 }
 
-		 public String getTaxExempt(){
-			 return props.getProperty("tax_exempt");
+		 public BigDecimal getTaxExempt(){
+			 return new BigDecimal(props.getProperty("tax_exempt"));
 		 }
-		 public String getTaxImported(){
-			 return props.getProperty("tax_imported");
+		 public BigDecimal getTaxImported(){
+			 return new BigDecimal(props.getProperty("tax_imported"));
 		 }
 
 }

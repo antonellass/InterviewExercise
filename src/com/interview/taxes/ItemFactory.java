@@ -26,22 +26,20 @@ public class ItemFactory {
 	/**
 	 * Lista degli item esenti da tasse e inzializzata prima dell'instanziazione della classe
 	 */
-	private static List<String> EXEMPT_ITEMS_TOKENS = new ArrayList<String>();
-	
-	private static final String patternItemLine=Configurator.getInstance().getPatternItem();
+	private static List<String> EXEMPT_ITEMS_TOKENS = Configurator.getInstance().getExemptItemList();
+	static final String patternItemLine=Configurator.getInstance().getPatternItem();
 	
 	private static Pattern pattern ;
 	
 	static{
-//		patternItemLine= Configurator.getInstance().getPatternItem();//"(\\d+) (.+) at ([\\d\\.,]+)";
 		pattern= Pattern.compile(patternItemLine);
 	}
 
-	static {
-		EXEMPT_ITEMS_TOKENS.add("book");//books
-		EXEMPT_ITEMS_TOKENS.add("chocolate");//food
-		EXEMPT_ITEMS_TOKENS.add("pills");//medical
-	}
+//	static {
+//		EXEMPT_ITEMS_TOKENS.add("book");//books
+//		EXEMPT_ITEMS_TOKENS.add("chocolate");//food
+//		EXEMPT_ITEMS_TOKENS.add("pills");//medical
+//	}
 
 
 	/**

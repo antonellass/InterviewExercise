@@ -11,7 +11,7 @@ public class ItemImpl implements ItemI {
 	private Integer quantity;
 	private Set<PercentageItemTaxTypeEnum> applicableTaxes;
 	private BigDecimal singleImport = new BigDecimal(BigInteger.ZERO, 2);
-	private BigDecimal taxImport;
+	private BigDecimal taxImport = new BigDecimal(BigInteger.ZERO, 2);
 	private BigDecimal totalTaxes = new BigDecimal(BigInteger.ZERO, 2);
 	private BigDecimal totPrice = new BigDecimal(BigInteger.ZERO, 2);
 
@@ -37,7 +37,6 @@ public class ItemImpl implements ItemI {
 		return price;
 	}
 
-	
 	@Override
 	public Set<PercentageItemTaxTypeEnum> getApplicableTax() {
 		return applicableTaxes;

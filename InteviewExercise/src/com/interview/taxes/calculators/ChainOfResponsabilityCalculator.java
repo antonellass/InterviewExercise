@@ -14,10 +14,12 @@ public class ChainOfResponsabilityCalculator {
 		calculator.setNext(importedCalculator);
 		importedCalculator.setNext(exemptCalculator);
 	}
-/**
- * Chain manager
- * @param item
- */
+
+	/**
+	 * Chain start
+	 * 
+	 * @param item
+	 */
 	public void calculateInvoice(ItemI item) {
 		calculator.calculates();
 

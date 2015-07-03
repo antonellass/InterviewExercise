@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.log4j.LogMF;
 import org.apache.log4j.Logger;
+
+import com.interview.taxes.utils.Configurator;
 
 public enum ItemFactory {
 	/**
@@ -19,7 +22,7 @@ public enum ItemFactory {
 	/**
 	 * Logger
 	 */
-	private Logger logger = Logger.getLogger(ItemFactory.class);
+	private static Logger logger = Logger.getLogger(ItemFactory.class);
 	/**
 	 * Parola chiave per gli item importati
 	 */
@@ -28,6 +31,16 @@ public enum ItemFactory {
 	 * Lista degli item esenti da tasse e inzializzata prima dell'instanziazione della classe
 	 */
 	private static List<String> EXEMPT_ITEMS_TOKENS = new ArrayList<String>();
+	
+	private static final String patternItemLine;
+	
+	private static Pattern pattern ;
+	
+	static{
+		patternItemLine= "(\\d+) (.+) at ([\\d\\.,]+)";
+		pattern= Pattern.compile(patternItemLine);
+	}
+
 	static {
 		EXEMPT_ITEMS_TOKENS.add("book");//books
 		EXEMPT_ITEMS_TOKENS.add("chocolate");//food
@@ -40,16 +53,16 @@ public enum ItemFactory {
 	 * @param itemLine stringa rappresentate l'ordine dell'item
 	 * @return istanza di Item
 	 */
-	public ItemI createItem(String itemLine) {
+	public static ItemI createItem(String itemLine) {
 		logger.debug("Create Item from itemLine: "+ itemLine);
-		String patternItemLine="(\\d+) (.+) at ([\\d\\.,]+)";
-		Pattern pattern = Pattern.compile(patternItemLine);
+		
+		
 		Matcher matcher = pattern.matcher(itemLine);
 		Integer quantity=null;
 		String name=null;
 		BigDecimal price=null;
 		while(matcher.find()){
-		 quantity = new Integer(matcher.group(1));
+		 quantity = Integer.valueOf(matcher.group(1));
 		 name=matcher.group(2);
 		 price= new BigDecimal(matcher.group(3));
 		}

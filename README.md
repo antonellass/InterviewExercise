@@ -46,3 +46,5 @@ Output 3:
 1 imported box of chocolates: 11.85
 Sales Taxes: 6.70
 Total: 74.68
+
+Implemented JunitTest to verify if a file Output generated from file Input is equals to expected file

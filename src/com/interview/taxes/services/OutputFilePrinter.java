@@ -12,7 +12,19 @@ import org.apache.log4j.Logger;
 
 import com.interview.taxes.ItemI;
 import com.interview.taxes.calculators.ChainOfResponsabilityCalculator;
-
+/**
+ * Print Output on file .txt like:
+ * Output(n).txt
+ * __________________
+ * 1 book : 12.49
+ * 1 music CD: 16.49
+ * 1 chocolate bar: 0.85
+ * Sales Taxes: 1.50
+ * Total: 29.83
+ * __________________
+ * @author antonella
+ *
+ */
 public class OutputFilePrinter implements Output {
 
 	/**
@@ -111,7 +123,7 @@ public class OutputFilePrinter implements Output {
 		formattedItem.append(item.getQuantity());
 		formattedItem.append(" ");
 
-		// descriptor
+		// name
 		formattedItem.append(item.getName());
 
 		// price
